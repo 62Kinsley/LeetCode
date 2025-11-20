@@ -35,57 +35,46 @@
 
 
 class Solution {
+    public int[] findXSum(int[] nums, int k, int x) {
+        int n = nums.length;
+        int[] ans = new int[Math.max(0, n - k + 1)];
+        Map<Integer, Integer> freq = new HashMap<>();
 
-    private int find(Map<Integer, Integer> freqMap, int x) {
-        // Max-heap based on frequency
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> b[0] - a[0]);
-
-        for (Map.Entry<Integer, Integer> entry : freqMap.entrySet()) {
-            pq.offer(new int[]{entry.getValue(), entry.getKey()});
+        for (int i = 0; i < k; i++) {
+            freq.put(nums[i], freq.getOrDefault(nums[i], 0) + 1);
         }
 
-        int sum = 0;
-        // Get the top x most frequent elements
-        while (x-- > 0 && !pq.isEmpty()) {
-            int[] top = pq.poll();
-            int freq = top[0];
-            int num = top[1];
-            // Add all occurrences of this number to sum
-            sum += num * freq;
+        ans[0] = computeXSum(freq, x);
+
+        for (int i = k; i < n; i++) {
+            int add = nums[i];
+            int rem = nums[i - k];
+
+            freq.put(add, freq.getOrDefault(add, 0) + 1);
+            int fr = freq.get(rem) - 1;
+            if (fr == 0) freq.remove(rem);
+            else freq.put(rem, fr);
+
+            ans[i - k + 1] = computeXSum(freq, x);
         }
 
-        return sum;
+        return ans;
     }
 
-    public int[] findXSum(int[] nums, int k, int x) {
-        Map<Integer, Integer> freqMap = new HashMap<>();
-        List<Integer> resultList = new ArrayList<>();
-        int l = 0;
-
-        for (int r = 0; r < nums.length; r++) {
-            freqMap.put(nums[r], freqMap.getOrDefault(nums[r], 0) + 1);
-
-            // Shrink the window if it exceeds size k
-            while (l < r && (r - l + 1) > k) {
-                freqMap.put(nums[l], freqMap.get(nums[l]) - 1);
-                if (freqMap.get(nums[l]) == 0) {
-                    freqMap.remove(nums[l]);
-                }
-                l++;
-            }
-
-            // If window size == k, compute the X-sum
-            if ((r - l + 1) == k) {
-                resultList.add(find(freqMap, x));
-            }
+    private int computeXSum(Map<Integer, Integer> freq, int x) {
+        List<int[]> items = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> e : freq.entrySet()) {
+            items.add(new int[]{e.getKey(), e.getValue()});
         }
-
-        // Convert List<Integer> → int[]
-        int[] result = new int[resultList.size()];
-        for (int i = 0; i < resultList.size(); i++) {
-            result[i] = resultList.get(i);
+        items.sort((a, b) -> {
+            if (a[1] != b[1]) return b[1] - a[1];
+            return b[0] - a[0];
+        });
+        long sum = 0;
+        int take = Math.min(x, items.size());
+        for (int i = 0; i < take; i++) {
+            sum += 1L * items.get(i)[0] * items.get(i)[1];
         }
-
-        return result;
+        return (int) sum;
     }
 }
