@@ -14,6 +14,8 @@
 //             res[i] = xsum(nums, i, k, x);
 //         }
 
+//         return res;
+
 //     }
 
 //     public int xSum(int[] nums, int start, int k, int x) {
@@ -21,65 +23,78 @@
 //         //[1,1,2,2,3,4,2,3]
 //            0 1 2 3 4 5 6
 //         //[0 2 2 1 1 0 0]
-//         int[] record = new int[51];
-//         for(int i=start; i<nums.length; i++){
-//             int index = nums[i];
-//             record[index]++;
+//         int[] freq = new int[51];
+//         for(int i=start; i<= start+k-1; i++){
+//             sum += nums[i];
+//             if (freq[nums[i]] == 0) {
+//                 distinctCount++;
+//             }
+//             freq[nums[i]]++;
+//         }
+//         // an array has less than x distinct elements
+//         if (distinctCount < x) {
+//             return sum;
 //         }
 
-//         PriorityQueue<Map<Integer, Integer>> maxHeap = new PriorityQueue<>((a,b) -> )
+//         sum = 0;
+
+//         for (int pick = 0; pick < x; pick++) {
+//             int bestFreq = -1;
+//             int bestVal = -1;
+
+//             for (int val = 50; val >= 1; val--) {
+//                 if (freq[val] > bestFreq) {
+//                     bestFreq = freq[val];
+//                     bestVal = val;
+//                 }
+//             }
+
+//             if (bestVal != -1) {
+//                 sum += bestVal * bestFreq;
+//                 freq[bestVal] = 0;
+//             }
+//         }
+        
 
 //     }
 
 // }
 
-
 class Solution {
     public int[] findXSum(int[] nums, int k, int x) {
-        int[] result = new int[nums.length - k + 1];
-
-        for (int i = 0; i < result.length; i++) {
-            int left = i, right = i + k - 1;
-            result[i] = findXSumofSubArray(nums, left, right, x);
+        final var n = nums.length;
+        final var m = n - k + 1;
+        final var ans = new int[m];
+        for (var i = 0; i < m; i++) {
+            ans[i] = xsum(nums, i, k, x);
         }
-
-        return result;
+        return ans;
     }
 
-    private int findXSumofSubArray(int[] nums, int left, int right, int x) {
-        int sum = 0, distinctCount = 0;
-        int[] freq = new int[51]; 
-
-        for (int i = left; i <= right; i++) {
-            sum += nums[i];
-            if (freq[nums[i]] == 0) {
-                distinctCount++;
-            }
-            freq[nums[i]]++;
+    private int xsum(int[] arr, int i, int k, int x) {
+        var freq = new int[51];
+        for (int j = i; j < i + k; j++) {
+            freq[arr[j]]++;
         }
 
-        if (distinctCount < x) {
-            return sum;
-        }
-
-        sum = 0;
-        for (int pick = 0; pick < x; pick++) {
-            int bestFreq = -1;
-            int bestVal = -1;
-
-            for (int val = 50; val >= 1; val--) {
-                if (freq[val] > bestFreq) {
-                    bestFreq = freq[val];
-                    bestVal = val;
-                }
+        var maxHeap = new PriorityQueue<Integer>(k, (a, b) -> {
+            if (freq[a] == freq[b]) {
+                return b - a;
             }
-
-            if (bestVal != -1) {
-                sum += bestVal * bestFreq;
-                freq[bestVal] = 0;
+            return freq[b] - freq[a];
+        });
+        for (int z = 0; z < freq.length; z++) {
+            if (freq[z] > 0) {
+                maxHeap.offer(z);
             }
         }
-        
-        return sum;
+        var ans = 0;
+        while (x-- > 0 && !maxHeap.isEmpty()) {
+            var alpha = maxHeap.poll();
+            ans += alpha * freq[alpha];
+        }
+        return ans;
     }
 }
+
+
