@@ -32,19 +32,23 @@
 //     }
 // }
 
-
+//优化
 class Solution {
     public long maxSubarraySum(int[] nums, int k) {
         long[] minS = new long[k];
-        Arrays.fill(minS, 0, k - 1, Long.MAX_VALUE / 2); // 防止下面减法溢出
+        Arrays.fill(minS, Long.MAX_VALUE / 2); // 防止下面减法溢出
+        minS[0] = 0;
 
         long ans = Long.MIN_VALUE;
-        long s = 0;
-        for (int j = 0; j < nums.length; j++) {
-            s += nums[j];
-            int i = j % k;
-            ans = Math.max(ans, s - minS[i]);
-            minS[i] = Math.min(minS[i], s);
+        long sum = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            int mod = (i+1) % k;
+           
+            ans = Math.max(ans, sum-minS[mod]);
+            minS[mod] = Math.min(minS[mod], sum);
+            
         }
         return ans;
     }
