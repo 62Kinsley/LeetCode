@@ -17,9 +17,7 @@ class Solution {
             int start = interval[0];
             int end = interval[1];
 
-            if( p1>=start && p2<= end){
-                res += 0;
-            }
+           
             if(p2 < start){
                 p1 = end - 1;
                 p2 = end;
@@ -31,7 +29,9 @@ class Solution {
                 res += 1;
             }
 
-
+            // if( p1>=start && p2<= end){
+            //     res += 0;
+            // }
         }
         return res;
     
