@@ -3,10 +3,10 @@ class Solution {
         Arrays.sort(nums);
         int n = nums.length;
         int res = 0;
-        for(int i=0; i<n; i++){
-            if(i % 2 == 0){
-                 res += nums[i];
-            }
+        for(int i=0; i<n; i+=2){
+            
+            res += nums[i];
+            
            
         }
 
