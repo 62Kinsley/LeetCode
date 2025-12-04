@@ -2,7 +2,7 @@ class Solution {
     public int[] lexSmallestNegatedPerm(int n, long target) {
         //edge case：
     
-        int sum  = (n+1)*n/2;      
+        long sum  = (n+1)*n/2;      
         if(sum < target){
             return new int[0];
         }
