@@ -10,8 +10,8 @@ class Solution {
 
         int res = 0;
         int p1= -1, p2 = -1;//2 3
-
-                    //   p1 p2
+                    // 2  3
+                    // p1 p2
         //[[1,3],[1,4],[3,5],[2,5]]
         for(int[] interval: intervals){
             int start = interval[0];
@@ -24,8 +24,9 @@ class Solution {
                 res +=2; 
             }
 
-            if( p1 <start){
-                p2=end;
+            if( p1 <start){//&&p2>=start
+                p1 = p2;
+                p2 = end;
                 res += 1;
             }
 
