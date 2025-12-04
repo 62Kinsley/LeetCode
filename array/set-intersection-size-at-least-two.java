@@ -1,21 +1,39 @@
 class Solution {
     public int intersectionSizeTwo(int[][] intervals) {
-        Arrays.sort(intervals, (a, b) ->
-                    a[0] != b[0] ? a[0]-b[0] : b[1]-a[1]);
-        int[] todo = new int[intervals.length];
-        Arrays.fill(todo, 2);
-        int ans = 0, t = intervals.length;
-        while (--t >= 0) {
-            int s = intervals[t][0];
-            int e = intervals[t][1];
-            int m = todo[t];
-            for (int p = s; p < s+m; ++p) {
-                for (int i = 0; i <= t; ++i)
-                    if (todo[i] > 0 && p <= intervals[i][1])
-                        todo[i]--;
-                ans++;
+        // Sort by the end point ascending, then by starting poing ascending 
+        Arrays.sort(intervals, (a,b) -> {
+            if(a[1] != b[1]){
+                return a[1] - b[1];
+            }
+            return b[0] - a[0];
+        });
+
+        // Track the last two elements added to our containing set
+        int largest = -1; // The largest element in our set
+        int secondLargest = -1; // The second element in our set
+        int size = 0;
+        for(int[] interval : intervals) {
+            int start = interval[0];
+            int end = interval[1];
+
+            // Check how many of our last elements are in this interval
+            boolean hasLargest = largest >= start && largest <= end;
+            boolean hasSecondLargest = secondLargest >= start && secondLargest <= end;
+
+            if(hasLargest && hasSecondLargest){
+                // Already satisfied, no need to add
+                continue; 
+            }else if(hasLargest || hasSecondLargest){
+                // Already contained one element 
+                secondLargest = largest;
+                largest = end;
+                size ++; // add one more element to the set 
+            }else {
+                secondLargest = end - 1;
+                largest = end;
+                size += 2;
             }
         }
-        return ans;
+        return size;
     }
 }
