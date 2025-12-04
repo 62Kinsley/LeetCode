@@ -20,11 +20,10 @@ class Solution {
        
         for(int x=n; x>=1; x--){
             if(d >= 2*x){
-                d -= x;
+                d -= 2*x;
                 res[l] = -x;
                 l++;
             }else{
-                d -= x;
                 res[r] = x;
                 r--;
             }
