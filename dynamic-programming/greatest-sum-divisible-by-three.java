@@ -40,11 +40,11 @@ class Solution {
     public int maxSumDivThree(int[] nums) {
         int[] dp = new int[3];  //0,1,2
         int sum = 0;
-        for (int num : nums) { //1
-            int[] current = dp.clone(); 
-            for(int i=0; i<3; i++){//
-                int newsum = current[i] + num;//1+1
-                int reminder = newsum % 3;//
+        for (int num : nums) { //3
+            int[] current = dp.clone(); //0, 0, 0
+            for(int i=0; i<3; i++){//0
+                int newsum = current[i] + num;//0+3
+                int reminder = newsum % 3;//0
                 dp[reminder] = Math.max(dp[reminder], newsum);
             }
             
