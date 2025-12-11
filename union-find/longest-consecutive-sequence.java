@@ -82,15 +82,15 @@ class Solution {
         }
 
         for(int num: set){//1
-            if(set.contains(num-1)){
+            if(set.contains(num+1)){
                 continue;
             }else{
                 int count = 1;
                 int cur = num;
-                while(set.contains(cur+1)){//2
+                while(set.contains(cur-1)){//2
                     count++;//1
                     res = Math.max(res, count);//4
-                    cur = cur+1;//
+                    cur = cur-1;//
                 }
             }
            
