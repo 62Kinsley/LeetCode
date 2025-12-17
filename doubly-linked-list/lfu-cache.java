@@ -19,7 +19,7 @@ class LFUCache {
         tail.prev = head;
     }
     
-   
+//    [4,4][3,3][2,2][1,1] c(1)=2 c(2)=3 c(3)=1 c(4)=1
 
     public int get(int key) {
         if(map.containsKey(key)){
@@ -48,8 +48,8 @@ class LFUCache {
             if(map.size() > cap){
                 Node lastnode = tail.prev;
                 Node lastSecondNode = lastnode.prev;
-                int cnt1 = cnt.get(lastnode.val);
-                int cnt2 = cnt.get(lastSecondNode.val);
+                int cnt1 = cnt.get(lastnode.key);
+                int cnt2 = cnt.get(lastSecondNode.key);
                 if(cnt2 >= cnt1){
                     remove(lastnode);
                     map.remove(lastnode.key);
