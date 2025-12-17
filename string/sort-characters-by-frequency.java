@@ -26,7 +26,7 @@ class Solution {
 
         StringBuilder sb = new StringBuilder();
 
-        for(int i=s.length() - 1; i>=0; i--){
+        for(int i=bucket.length - 1; i>=0; i--){
             if(bucket[i] != null){
                 for(char c : bucket[i]){
                     for (int k = 0; k < i; k++) {
