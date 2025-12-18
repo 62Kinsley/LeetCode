@@ -10,11 +10,11 @@ class Solution {
         int l = 0;
         int  r = max;
         int target = 0;
-        while(l <= r){
+        while(l < r){
             int mid = l+(r-l)/2;
             if(check(inventory, mid) < orders){
                 target = mid;
-                r = mid -1;
+                r = mid;
             }else{
                 l = mid + 1;
             }
