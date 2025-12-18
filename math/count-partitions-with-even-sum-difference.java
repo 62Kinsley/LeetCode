@@ -5,8 +5,8 @@ class Solution {
         int right = 0;
         int res = 0;
 
-        for(int num : nums){
-            right += num;
+        for(int i=0; i<n; i++){
+            right += nums[i];
         }
 
         for(int i=0; i<n-1; i++){
