@@ -9,16 +9,16 @@ class Solution {
 
         int l = 0;
         int  r = max;
-        int target = 0;
+        // int target = 0;
         while(l < r){
             int mid = l+(r-l)/2;
             if(check(inventory, mid) < orders){
-                target = mid;
                 r = mid;
             }else{
                 l = mid + 1;
             }
         }
+        int target = l;
 
         long totalProfit = 0;
         long count = 0;
