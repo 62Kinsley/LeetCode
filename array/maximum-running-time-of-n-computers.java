@@ -10,7 +10,7 @@ class Solution {
         while(l < r){
             int mid = l + (r-l) / 2;
             int estimatedTotal = check(batteries, mid);
-            if(mid*n >  estimatedTotal ){//预期的target太大了
+            if(mid*n >=  estimatedTotal ){//预期的target太大了
                     r = mid;
             }else{//target*n <=  estimatedTotal, 
                 l = mid+1;
