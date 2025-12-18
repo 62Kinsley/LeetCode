@@ -5,16 +5,15 @@ class Solution {
             if(num == 0){
                 return 0;
             }
-            product *= num;
+            if(num < 0){
+                product *= -1;
+            }
+             if(num > 0){
+                product *= 1;
+            }  
         }
-        
-        if(product > 0){
-            return 1;
-        }else if(product < 0){
-            return -1;
-        }else{
-            return 0;
-        }
+        return product;
+      
 
     }
 }
