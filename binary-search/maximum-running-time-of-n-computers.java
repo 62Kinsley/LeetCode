@@ -1,27 +1,27 @@
 class Solution {
     public long maxRunTime(int n, int[] batteries) {
 
-        int sum = 0;
+        long sum = 0;
         for(int x : batteries){
             sum += x;
         }
 
-        int l=0, r = sum/n;
+        long l=0, r = sum/n;
         while(l < r){
-            int mid = l + (r-l) / 2;
-            int estimatedTotal = check(batteries, mid);
-            if(mid*n >=  estimatedTotal ){//预期的target太大了
+            long mid = l + (r-l) / 2;
+            long estimatedTotal = check(batteries, mid);
+            if((long)mid*n >=  estimatedTotal ){//预期的target太大了
                     r = mid;
             }else{//target*n <=  estimatedTotal, 
                 l = mid+1;
             }
         }
-        return l;
+        return r;
         
     }
 
 
-    private int check(int[] batteries, int target){
+    private long check(int[] batteries, long target){
             int total = 0;
 
             for(int battery : batteries){
