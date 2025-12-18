@@ -7,11 +7,11 @@ class Solution {
         }
 
         long l=0, r = sum/n;
-        while(l < r){
+        while(l <= r){
             long mid = l + (r-l) / 2;
             long estimatedTotal = check(batteries, mid);
-            if((long)mid*n >=  estimatedTotal ){//预期的target太大了
-                    r = mid;
+            if((long)mid*n >  estimatedTotal ){//预期的target太大了
+                    r = mid - 1;
             }else{//target*n <=  estimatedTotal, 
                 l = mid+1;
             }
