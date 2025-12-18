@@ -22,10 +22,10 @@ class Solution {
 
 
     private long check(int[] batteries, long target){
-            int total = 0;
+            long total = 0;
 
             for(int battery : batteries){
-                total += Math.min(battery, target);//
+                total += (long)Math.min(battery, target);//
             }
             return total;
     }
