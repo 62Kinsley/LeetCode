@@ -1,69 +1,97 @@
 class LFUCache {
     class Node{
         int key, val;
+        int freq = 1;
         Node prev, next;
         public Node(int key, int value) {
             this.key = key;
-            this.val = value;
+            this.val = value; 
         }
     }
     
-    int cap;
-    Node head = new Node(0,0);
-    Node tail = new Node(0,0);
-    Map<Integer, Integer> cnt = new HashMap<>();
-    Map<Integer, Node> map = new HashMap<>();
+    int capacity;
+    int minFreq = 1;
+    Map<Integer, Node> freqToNode = new HashMap<>();
+    Map<Integer, Node> keyToNode = new HashMap<>();
+
     public LFUCache(int capacity) {
-        cap = capacity;
-        head.next = tail;
-        tail.prev = head;
+        this.capacity = capacity;
+
     }
     
 //    [4,4][3,3][2,2][1,1] c(1)=2 c(2)=3 c(3)=1 c(4)=1
 
     public int get(int key) {
-        if(map.containsKey(key)){
-            Node node = map.get(key);
-            remove(node);
-            addInHead(node);
-            cnt.put(key, cnt.getOrDefault(key, 0)+1);
-            return node.val;
-        }else{
-            return -1;
-        }
+       Node node = getNode(key);
+       return node == null? -1: node.val;
     }
     
     public void put(int key, int value) {
-        if(map.containsKey(key)){
-            Node node = map.get(key);
+
+        Node node = getNode(key);
+
+        //node存在,更新node.val
+        if(node != null){
             node.val = value;
-            cnt.put(key, cnt.getOrDefault(key, 0)+1);
-            remove(node);
-            addInHead(node);
-        }else{
-            Node newnode = new Node(key, value);
-            map.put(key, newnode);
-            addInHead(newnode);
-            cnt.put(key, cnt.getOrDefault(key, 0)+1);
-            if(map.size() > cap){
-                Node lastnode = tail.prev;
-                Node lastSecondNode = lastnode.prev;
-                int cnt1 = cnt.get(lastnode.key);
-                int cnt2 = cnt.get(lastSecondNode.key);
-                if(cnt2 >= cnt1){
-                    remove(lastnode);
-                    map.remove(lastnode.key);
-                }
+            return ;
+        }
+
+        //node 不存在
+        //判断： cap达到上限/ 没到上限
+        if(keyToNode.size() == capacity){
+            //移除(1)频率次数最低的(2)最后一个
+            Node dummy = freqToNode.get(minFreq);
+            Node lastNode = dummy.prev;
+            keyToNode.remove(lastNode.key);
+            remove(lastNode);
+            if(dummy.next == dummy){
+                freqToNode.remove(minFreq);//移除空表
             }
         }
-        
+        Node newNode = new Node(key, value);
+        keyToNode.put(key, newNode);
+        addInHead(1, newNode);
+        minFreq = 1;
+
     }
 
-    private void addInHead(Node node){
-        node.prev = head;
-        node.next = head.next;
-        head.next.prev = node;
-        head.next = node;
+    private Node getNode(int key) {
+        if(!keyToNode.containsKey(key)){
+            return null;
+        }
+        Node node = keyToNode.get(key);
+        //移除
+        remove(node);
+        Node dummy = freqToNode.get(node.freq);
+
+        //如果移除以后，这个freq的链表为空的话，要移除这个freq，同时minFreq也要增加
+        if(dummy.next == dummy){
+            freqToNode.remove(node.freq);
+            if(minFreq == node.freq){
+                minFreq++;
+            }
+        }
+        //增加频率
+        node.freq++;
+        addInHead(node.freq, node);
+        return node;
+
+    }
+
+     private Node newList() {
+        Node dummy = new Node(0, 0); // 哨兵节点
+        dummy.prev = dummy;
+        dummy.next = dummy;
+        return dummy;
+    }
+
+
+    private void addInHead(int freq, Node node){
+        Node dummy = freqToNode.computeIfAbsent(freq, k -> newList());
+        node.prev = dummy;
+        node.next = dummy.next;
+        dummy.next.prev = node;
+        dummy.next = node;
 
     }
 
