@@ -1,38 +1,48 @@
 class Solution {
-      public int maxProfit(int[] inventory, int orders) {
-        int lo = 1, hi = Arrays.stream(inventory).max().getAsInt();
-        Arrays.sort(inventory);
-
-        while (lo < hi) {
-            int mid = lo + (hi - lo + 1) / 2;
-            if (getCount(inventory, mid) < orders)
-                hi = mid - 1;
-            else
-                lo = mid;
+    long MOD = 1000000007;
+    public int maxProfit(int[] inventory, int orders) {
+       
+        int max = 0;
+        for(int x : inventory){
+            max = Math.max(max, x);
         }
 
-        int minPrice = lo, ordered = 0;
-        long profit = 0;
-
-        for (int i = inventory.length - 1; i >= 0; i--) {
-            int curPrice = inventory[i];
-            if (curPrice <= minPrice) break;
-            profit += (long) (curPrice + minPrice + 1) * (curPrice - minPrice) / 2;
-            ordered += curPrice - minPrice;
+        int l = 0;
+        int  r = max;
+        int target = 0;
+        while(l <= r){
+            int mid = l+(r-l)/2;
+            if(check(inventory, mid) < orders){
+                target = mid;
+                r = mid -1;
+            }else{
+                l = mid + 1;
+            }
         }
 
-        profit += (long) minPrice * (orders - ordered);
-        profit = profit % 1000000007;
-        return (int) profit;
+        long totalProfit = 0;
+        long count = 0;
+        for (int num : inventory) {
+            if (num > target) {
+                long n = num - target;
+                totalProfit = (totalProfit + (long)(target + 1 + num)* n /2) % MOD;
+                count += n;
+            }
+        }
+        long remainingOrders = orders - count;
+        totalProfit = (totalProfit + remainingOrders * target) % MOD;
+        return (int) totalProfit;
     }
 
-    private long getCount(int[] inventory, int mid) {
-        long count = 0;
-        for (int i = inventory.length - 1; i >= 0; i--) {
-            if (inventory[i] < mid) break;
-            count += inventory[i] - mid + 1;
+/// 辅助函数：计算如果价格阈值为 mid，我们要卖多少个球
+    private long check(int[] inventory, int mid) {
+        long sum = 0;
+        for (int num : inventory) {
+            if (num > mid) {
+                sum += (num - mid);
+            }
         }
-        return count;
+        return sum;
     }
 }
 
