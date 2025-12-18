@@ -13,8 +13,9 @@ class Solution {
         while(l < r){
             int mid = l+(r-l)/2;
             if(check(inventory, mid) < orders){
-                target = mid;
+                
                 r = mid;
+                target = mid;
             }else{
                 l = mid + 1;
             }
