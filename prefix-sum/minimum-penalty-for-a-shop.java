@@ -9,8 +9,9 @@ class Solution {
         // 2: 0+0+0 +1
         // 1: 0+
 
-        List<Integer>[] penalty = new ArrayList[times+1];//penalty:<time>
+        // List<Integer>[] penalty = new ArrayList[times+1];//penalty:<time>
         int count = 0;
+        int minPenalty = times;
         for(char c :customers.toCharArray() ){
             if(c == 'N'){
                 count++;
