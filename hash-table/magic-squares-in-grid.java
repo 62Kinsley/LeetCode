@@ -35,11 +35,11 @@ class Solution {
                             valid = false;
                             break;
                         }
-                        count[k]++;
+                        count[k]++;//记录这个数字出现的次数
                         rowSum[x] += k;
                         colSum[y] += k;
                     }
-                    if (!valid) break;
+                    // if (!valid) break;
                 }
                 // 检查每个数字是否恰好出现 1 次
                 if (valid) {
