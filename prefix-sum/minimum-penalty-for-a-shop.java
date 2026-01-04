@@ -11,14 +11,15 @@ class Solution {
 
         // List<Integer>[] penalty = new ArrayList[times+1];//penalty:<time>
         int count = 0;
-        int minPenalty = times;
+        
+        int res = times;
         for(char c :customers.toCharArray() ){
             if(c == 'N'){
                 count++;
             }
         }
-        penalty[count] = new ArrayList<>();
-        penalty[count].add(times);//4:<1>
+        int minPenalty = count;
+
 
         for(int i=times-1; i>=0; i--){//现在是关门状态
             char c = customers.charAt(i);
@@ -29,25 +30,12 @@ class Solution {
                 count--;
             }
 
-            if(penalty[count] == null){
-                penalty[count] = new ArrayList<>();
-            }
-            penalty[count].add(i);
+           if(count <= minPenalty){
+                res = i;
+                minPenalty = count;
+           }
         }
         
-        int res = times;
-        for(int i=0; i<=times; i++){
-            if(penalty[i] != null){
-                List<Integer> time = penalty[i];
-                for(int t : time){
-                    if(t < res){
-                        res = t;
-                    }
-                }
-                break;
-            }
-            
-        }
         return res;
     }
 }
