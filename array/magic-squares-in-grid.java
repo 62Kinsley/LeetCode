@@ -32,7 +32,7 @@
 
 //                         // 数字必须在 1-9 之间
 //                         if (k < 1 || k > 9) {
-//                             valid = false;
+//                             // valid = false;
 //                             break;
 //                         }
 //                         count[k]++;//记录这个数字出现的次数
@@ -66,13 +66,13 @@
 
 class Solution {
     public int numMagicSquaresInside(int[][] grid) {
-        ////if grid.length < 3 || grid[i].length < 3 contine return 0
-        //conner case: if the gird[i][j] >9|| grid[i][j]<1 continue
+         ////if grid.length < 3 || grid[i].length < 3 contine return 0
+         //conner case: if the gird[i][j] >9|| grid[i][j]<1 continue
 
-        //grid[i+1][j+1] == 5? the center integer must be 5
-        //no? continue
-        //yes? check each integer in the 3 x 3 grid  >=1 && <=9? -> no break, yes->
-        //only check first 2 row, first 2 column
+         //grid[i+1][j+1] == 5? the center integer must be 5
+         //no? continue
+         //yes? check each integer in the 3 x 3 grid  >=1 && <=9? -> no break, yes->
+         //only check first 2 row, first 2 column
 
         int m = grid.length, n = grid[0].length;
         int res = 0;
@@ -83,17 +83,17 @@ class Solution {
 
         for(int i=0; i<= m-3; i++){
             for(int j=0; j<= n-3; j++){
-                ////check  center integer is 5
-                //if not, continue
+                 ////check  center integer is 5
+                 //if not, continue
                 if(grid[i][j] < 1 || grid[i+1][j+1] >9){
-                    continue;
+                     continue;
                 }
                 if(grid[i+1][j+1] != 5){
-                    continue; 
+                     continue; 
                 }
 
-                //center integer is 5
-                //check the magic square with distinct numbers from 1 to 9 
+                 //center integer is 5
+                 //check the magic square with distinct numbers from 1 to 9 
                 int[] count = new int[10];
                 int[] rowSum = new int[3];
                 int[] colSum = new int[3];
@@ -103,26 +103,29 @@ class Solution {
                     for(int y=0; y<=2; y++){
                         int k = grid[i+x][j+y];
 
-                        if(k < 1 || k >9){
+                    if(k < 1 || k >9){
+                        //    valid = false;
                             break;//not the  magic square
+                    }
+                    count[k]++;
+                    rowSum[x] += k;
+                    colSum[y] += k;
+
+                    }
+                }
+                if(valid){
+                    for(int z=1; z<=9; z++){//保证 filled with distinct numbers from 1 to 9 
+                        if(count[z] != 1){
+                            valid = false;
+                            break;
                         }
-                        count[k]++;
-                        rowSum[x] += k;
-                        colSum[y] += k;
-
                     }
                 }
-
-                for(int z=1; z<=9; z++){//保证 filled with distinct numbers from 1 to 9 
-                    if(count[z] != 1){
-                        valid = false;
-                        break;
-                    }
-                }
+                 
 
                 if(valid){
                     if(rowSum[0] == 15 && rowSum[1] == 15 && colSum[0] == 15 && colSum[1] == 15){
-                        res++;
+                    res++;
                     }
                 }
                 
@@ -134,4 +137,4 @@ class Solution {
         return res;
 
     }
-}
+ }
