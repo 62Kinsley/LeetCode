@@ -106,6 +106,7 @@ class Solution {
                         if(k < 1 || k >9){
                             break;//not the  magic square
                         }
+                        count[k]++;
                         rowSum[x] += k;
                         colSum[y] += k;
 
