@@ -97,7 +97,7 @@ class Solution {
                 int[] count = new int[10];
                 int[] rowSum = new int[3];
                 int[] colSum = new int[3];
-                
+                boolean valid = true;
 
                 for(int x=0; x<=2; x++){
                     for(int y=0; y<=2; y++){
@@ -115,13 +115,17 @@ class Solution {
 
                 for(int z=1; z<=9; z++){//保证 filled with distinct numbers from 1 to 9 
                     if(count[z] != 1){
+                        valid = false;
                         break;
                     }
                 }
 
-                if(rowSum[0] == 15 && rowSum[1] == 15 && colSum[0] == 15 && colSum[1] == 15){
-                    res++;
+                if(valid){
+                    if(rowSum[0] == 15 && rowSum[1] == 15 && colSum[0] == 15 && colSum[1] == 15){
+                        res++;
+                    }
                 }
+                
 
 
             }
