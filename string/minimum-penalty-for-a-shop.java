@@ -11,8 +11,8 @@ class Solution {
 
         // List<Integer>[] penalty = new ArrayList[times+1];//penalty:<time>
         int count = 0;
-        
-        int res = times;
+        int bestHour = times;
+
         for(char c :customers.toCharArray() ){
             if(c == 'N'){
                 count++;
@@ -31,11 +31,11 @@ class Solution {
             }
 
            if(count <= minPenalty){
-                res = i;
+                bestHour  = i;
                 minPenalty = count;
            }
         }
         
-        return res;
+        return bestHour;
     }
 }
