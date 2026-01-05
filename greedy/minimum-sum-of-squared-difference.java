@@ -4,7 +4,7 @@ class Solution {
         int n = nums1.length;
         int[] diffTimes = new int[100001];//0-10000, index:diff value:times
         int maxDiff = 0;
-        int k = k1+k2;
+        long k = k1+k2;
 
         for(int i=0; i<n; i++){
             int curDiff = Math.abs(nums1[i] - nums2[i]);
