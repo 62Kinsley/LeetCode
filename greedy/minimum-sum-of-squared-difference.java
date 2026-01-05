@@ -9,13 +9,13 @@ class Solution {
 
         for(int i=0; i<n; i++){
             int curDiff = Math.abs(nums1[i] - nums2[i]);
-            totalDiff += curDiff;//提前算
+            // totalDiff += curDiff;//提前算
             diffTimes[curDiff]++;
             maxDiff = Math.max(maxDiff, curDiff);
         }
-        if (totalDiff <= k) {
-            return 0;
-        }
+        // if (totalDiff <= k) {
+        //     return 0;
+        // }
         for(int i=maxDiff; i>0&& k>0; i--){
             if(diffTimes[i] > 0){
                 if(k >= diffTimes[i]){
