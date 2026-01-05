@@ -1,15 +1,15 @@
 class Solution {
     public long maxProfit(int[] prices, int[] strategy, int k) {
         
-        int originProfit = 0;
-        int profit  = 0;
+        long originProfit = 0;
+        long profit  = 0;
         int half = k/2; //1
         int n = prices.length;
 
         for(int i=0; i<n; i++){
               originProfit += prices[i]*strategy[i];//算出Originalprofit:4
         }
-        int maxProfit = originProfit;//4
+        long maxProfit = originProfit;//4
 
         for(int i=half; i<k; i++){
               profit +=  prices[i];  //从中间开始算 1 的
