@@ -12,7 +12,7 @@ class Solution {
         int maxProfit = originProfit;//4
 
         for(int i=half; i<k; i++){
-              profit +=  prices[i];  //从中间开始算 
+              profit +=  prices[i];  //从中间开始算 1 的
         }
 
         for(int i=k; i<prices.length; i++){
@@ -23,8 +23,11 @@ class Solution {
 
       
         for(int i=1; i<=n-k; i++){
+            //i-1之前肯定是0，所以现在要加上去
             profit += prices[i-1] * strategy[i-1];
-            profit -= prices[i+half-1] * strategy[i+half-1];
+            //i+half-1之前肯定是1，现在是0，所以要减掉
+            profit -= prices[i+half-1];
+            //
             if(strategy[i+k-1] == 0){
                 profit += prices[i+k-1];
             }
