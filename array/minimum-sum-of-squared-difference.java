@@ -26,7 +26,7 @@ class Solution {
             }
         }
 
-        int res = 0;
+        long res = 0;
         for(int i=maxDiff; i>0; i--){
             if(diffTimes[i] > 0){
                 res += diffTimes[i]* i * i;
