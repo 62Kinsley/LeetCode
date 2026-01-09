@@ -3,7 +3,7 @@ class Solution {
         //1.
         int n = matrix.length;
         int countNeg = 0;
-        int res = 0;
+        long res = 0;
         int minAbs = Integer.MAX_VALUE;
 
         for(int i=0; i<n; i++){
