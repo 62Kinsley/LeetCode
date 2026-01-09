@@ -5,12 +5,13 @@ class Solution {
         int countNeg = 0;
         int res = 0;
         int minAbs = Integer.MAX_VALUE;
+
         for(int i=0; i<n; i++){
             for(int j=0; j<n; j++){
                 if(matrix[i][j] <= 0){
                     countNeg++;
-                    minAbs = Math.min(minAbs, -matrix[i][j]);
                 }
+                 minAbs = Math.min(minAbs, Math.abs(matrix[i][j]));
                 res += Math.abs(matrix[i][j]);//所有数的绝对值都相加
             }
         }
