@@ -24,7 +24,7 @@ class Solution {
                 res++;
             }else{
                 for(int row = 0; row < n - 1; row++){
-                    if(!sortedRow[row] && strs[row].charAt(col) < strs[row+1].charAt(col)){
+                    if( strs[row].charAt(col) < strs[row+1].charAt(col)){
                         sortedRow[row] = true;
                     }
                     
