@@ -1,0 +1,54 @@
+class Solution {
+    public double separateSquares(int[][] squares) {
+            //浮点数二分不能用 ±1!!!!!
+        double low = 0,  high = 0; 
+        
+        for(int[] square: squares){
+            int y = square[1];
+            int l = square[2];
+            high = Math.max(y+l, high);   
+        }
+
+        while(high - low > 1e-7){
+        
+            double mid = low + (high-low)/2;
+
+            if(check(squares, mid)){
+                high = mid;
+            }else{//above > below
+                low = mid;
+            }
+            
+        }
+
+        return low;
+        
+    }
+
+    public boolean check(int[][] squares, double target){
+
+        double above = 0, below = 0;
+
+        for(int[] square : squares){
+            int x = square[0];
+            int y = square[1];
+            int l = square[2];
+
+            if(y+l <= target){
+                below += (double)l*l;
+            }
+            if(y >= target){
+                above += (double)l*l;
+            }
+
+            if(x < target && target < y+l){
+                below += (double)l*(target-y);
+                above += (double)l*(y+l-target);
+            }
+        }
+
+        return above <= below;
+
+        
+    }
+}
