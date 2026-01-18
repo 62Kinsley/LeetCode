@@ -1,7 +1,7 @@
 class Solution {
     public double separateSquares(int[][] squares) {
             //浮点数二分不能用 ±1!!!!!
-        double low = Double.MAX_VALUE,  high = 0; 
+        double low = 2e9,  high = 0; 
         
         for(int[] square: squares){
             int y = square[1];
