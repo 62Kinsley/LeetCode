@@ -10,7 +10,7 @@ class Solution {
             high = Math.max(y+l, high);   
         }
 
-        while(high - low > 1e-7){
+        for (int i = 0; i < 100; i++) {
         
             double mid = low + (high-low)/2.0;
 
