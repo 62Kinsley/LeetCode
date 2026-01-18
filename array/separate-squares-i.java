@@ -30,18 +30,18 @@ class Solution {
         double above = 0, below = 0;
 
         for(int[] square : squares){
-            int x = square[0];
+           
             int y = square[1];
             int l = square[2];
 
             if(y+l <= target){
                 below += (double)l*l;
             }
-            if(y >= target){
+            else if(y >= target){
                 above += (double)l*l;
             }
 
-            if(y < target && target < y+l){
+            else{
                 below += (double)l*(target-y);
                 above += (double)l*(y+l-target);
             }
