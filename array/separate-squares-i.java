@@ -36,12 +36,9 @@ class Solution {
 
             if(y+l <= target){
                 below += (double)l*l;
-            }
-            if(y >= target){
+            }else if(y >= target){
                 above += (double)l*l;
-            }
-
-            if(x < target && target < y+l){
+            }else{
                 below += (double)l*(target-y);
                 above += (double)l*(y+l-target);
             }
