@@ -41,7 +41,7 @@ class Solution {
                 above += (double)l*l;
             }
 
-            if(x < target && target < y+l){
+            if(y < target && target < y+l){
                 below += (double)l*(target-y);
                 above += (double)l*(y+l-target);
             }
