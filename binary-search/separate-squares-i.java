@@ -11,7 +11,7 @@ class Solution {
 
         while(high - low > 1e-7){
         
-            double mid = low + (high-low)/2;
+            double mid = low + (high-low)/2.0;
 
             if(check(squares, mid)){
                 high = mid;
@@ -36,9 +36,12 @@ class Solution {
 
             if(y+l <= target){
                 below += (double)l*l;
-            }else if(y >= target){
+            }
+            if(y >= target){
                 above += (double)l*l;
-            }else{
+            }
+
+            if(x < target && target < y+l){
                 below += (double)l*(target-y);
                 above += (double)l*(y+l-target);
             }
