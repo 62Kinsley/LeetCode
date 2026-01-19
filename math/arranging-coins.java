@@ -1,10 +1,10 @@
 class Solution {
     public int arrangeCoins(int n) {
 
-        int l=0, r=n;
-        int res = n;
+        long l=0, r=n;
+        long res = n;
         while(l <= r){
-            int mid = l + (r-l)/2;//2
+            long mid = l + (r-l)/2;//2
 
             long coinsNum = (long)(mid*(mid+1))/2;
 
