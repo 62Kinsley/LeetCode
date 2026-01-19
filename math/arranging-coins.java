@@ -6,7 +6,7 @@ class Solution {
         while(l <= r){
             long mid = l + (r-l)/2;//2
 
-            long coinsNum = (long)(mid*(mid+1))/2;
+            long coinsNum = (mid*(mid+1))/2;
 
             if(coinsNum > n){
                 r = mid - 1; 
