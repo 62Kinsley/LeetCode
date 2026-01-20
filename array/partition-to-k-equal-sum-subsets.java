@@ -1,60 +1,71 @@
-class Solution {
-    public boolean canPartitionKSubsets(int[] nums, int k) {
+// class Solution {
+//        //1.calculate the sum of nums
+//         //2.calculate the sum of every subsets
+//         //if sum of every subsets is != Integer (sum % k != 0)
+//         //such as: example2 10/3 != integer
+//         //return false;
+//         //sort nums: [1,2,2,3,3,4,5]
+//     public boolean canPartitionKSubsets(int[] nums, int k) {
         
-        //1.calculate the sum of nums
-        //2.calculate the sum of every subsets
-        //if sum of every subsets is != Integer (sum % k != 0)
-        //such as: example2 10/3 != integer
-        //return false;
-        //sort nums: [1,2,2,3,3,4,5]
+//         int sum = 0;//12
+//         for(int num : nums){
+//             sum += num;
+//         }
 
-        //ues two pointer, l=0, r=n-1
-        //create a boolean array the visted:[] to record which element is visited
-        // check  boolean array the visted[], if there is element is false, return false, or return true
+//         if(sum % k != 0){
+//             return false;
+//         }
 
-        int sum = 0;
-        for(int num : nums){
-            sum += num;
+//         int need = sum / k; 
+//         int n = nums.length;
+//         boolean[] visited = new boolean[n];
+//         Arrays.sort(nums);
+//         return backTracking(nums, need, 0, 0);
+        
+
+//     }
+
+//     public boolean backTracking(int[] nums, int target, int sum, int count, boolean[] visited){
+        
+//          //termination condition: handle all element
+//          if(index == nums.length){
+
+//          }
+
+//          for(int i=0; i<)
+
+
+
+//     }
+// }
+
+class Solution {
+    private boolean backtracking(int[] nums, int k, int target, int cur, int start, boolean[] used) {
+        // 返回条件
+        if (k == 0) return true;
+        if (cur == target) {
+            // 构建下一个集合
+            return backtracking(nums, k-1, target, 0, 0, used);
         }
-
-        if(sum % k != 0){
-            return false;
-        }
-
-        int need = sum / k; 
-        Arrays.sort(nums);
-        int n = nums.length;
-        int l=0, r=n-1;
-        boolean visited[] = new boolean[n];
-        //      l
-        //  0 1 2 3 4 5 6
-        //        r
-        // [1,2,2,3,3,4,5]
-        // [t t t t t t t]
-        while(l < r){
-            if(nums[l] + nums[r] == need){
-                visited[l] = true;
-                visited[r] = true;
-                l++;
-                r--;
-            }else if(nums[l] + nums[r] > need){
-                r--;
-            }else{
-                return false;
+        for (int i = start; i < nums.length; i++) {
+            if (!used[i] && cur+nums[i] <= target) {
+                used[i] = true;
+                if (backtracking(nums, k, target, cur+nums[i], i+1, used)) return true;
+                used[i] = false;
             }
         }
-
-        for(int i=n-1; i>=0; i--){
-            if(!visited[i]){
-                if(nums[i] == need){
-                    visited[i] = true;
-                }else{
-                    return false;
-                }
-            }
+        return false;
+    }
+    
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        // 注意nums[i] > 0
+        int sum = 0, maxNum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (maxNum < nums[i]) maxNum = nums[i];
         }
-       
-        return true;
-
+        if (sum % k != 0 || maxNum > sum/k) return false;
+        boolean[] used = new boolean[nums.length];
+        return backtracking(nums, k, sum/k, 0, 0, used);
     }
 }
