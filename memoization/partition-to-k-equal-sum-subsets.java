@@ -39,33 +39,37 @@
 //     }
 // }
 
+
+
 class Solution {
-    private boolean backtracking(int[] nums, int k, int target, int cur, int start, boolean[] used) {
-        // 返回条件
-        if (k == 0) return true;
-        if (cur == target) {
-            // 构建下一个集合
-            return backtracking(nums, k-1, target, 0, 0, used);
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        int sum=0;
+        for(int a:nums){
+            sum+=a;
         }
-        for (int i = start; i < nums.length; i++) {
-            if (!used[i] && cur+nums[i] <= target) {
-                used[i] = true;
-                if (backtracking(nums, k, target, cur+nums[i], i+1, used)) return true;
-                used[i] = false;
+        if(sum%k!=0) return false;
+        int a=sum/k;
+        // Arrays.sort(nums);
+        boolean[] b=new boolean[nums.length];
+        return isTrue(nums,k,a,0,b,0);
+    }
+    public boolean isTrue(int[] a,int k,int tar,int i,boolean[] b,int curr){
+        if(k==1){
+            return true;
+        }
+        if(curr==tar){
+            return isTrue(a,k-1,tar,0,b,0);
+        }
+        for(int j=i;j<a.length;j++){
+            if(b[j]) continue;
+            if(curr+a[j]>tar) continue;
+            b[j]=true;
+            if(isTrue(a,k,tar,j+1,b,curr+a[j])) return true;
+            b[j]=false;
+            if(curr==0){
+                break;
             }
         }
         return false;
-    }
-    
-    public boolean canPartitionKSubsets(int[] nums, int k) {
-        // 注意nums[i] > 0
-        int sum = 0, maxNum = 0;
-        for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
-            if (maxNum < nums[i]) maxNum = nums[i];
-        }
-        if (sum % k != 0 || maxNum > sum/k) return false;
-        boolean[] used = new boolean[nums.length];
-        return backtracking(nums, k, sum/k, 0, 0, used);
     }
 }
