@@ -29,50 +29,50 @@
 //   r
 //abcabcbb
 //l
-// class Solution{
-//     public int lengthOfLongestSubstring(String s){
+class Solution{
+    public int lengthOfLongestSubstring(String s){
 
-//         int l=0;
-//         int res=0;
-//         Set<Character> set = new HashSet<>();
+        int l=0;
+        int res=0;
+        Set<Character> set = new HashSet<>();
 
-//         for(int r= 0; r < s.length(); r++){
+        for(int r= 0; r < s.length(); r++){
 
-//             char c = s.charAt(r);
+            char c = s.charAt(r);
 
-//             while(set.contains(c)){
-//                 set.remove(s.charAt(l));
-//                 l++;
-//             }
-//             set.add(c);
-//             res = Math.max(res, r-l+1);
+            while(set.contains(c)){
+                set.remove(s.charAt(l));
+                l++;
+            }
+            set.add(c);
+            res = Math.max(res, r-l+1);
 
-//         }
-//         return res;
+        }
+        return res;
 
-//     }
-// }
+    }
+}
  
  //sliding window and hashset
 
-class Solution{
-    public int lengthOfLongestSubstring(String s){
-        int l=0, r=0;
-        Set<Character> set = new HashSet<>();
-        int res = 0;
-        while(r < s.length()){
+// class Solution{
+//     public int lengthOfLongestSubstring(String s){
+//         int l=0, r=0;
+//         Set<Character> set = new HashSet<>();
+//         int res = 0;
+//         while(r < s.length()){
 
-            char right = s.charAt(r);
-            while(l<=r && set.contains(right)){
-                char left = s.charAt(l);
-                set.remove(left);
-                l++;
-            }
-            set.add(right);
-            res = Math.max(r-l+1, res);
-            r++;
-        }
+//             char right = s.charAt(r);
+//             while(l<=r && set.contains(right)){
+//                 char left = s.charAt(l);
+//                 set.remove(left);
+//                 l++;
+//             }
+//             set.add(right);
+//             res = Math.max(r-l+1, res);
+//             r++;
+//         }
 
-        return res;
-    }
-}
+//         return res;
+//     }
+// }
