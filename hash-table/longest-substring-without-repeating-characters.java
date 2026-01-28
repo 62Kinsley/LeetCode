@@ -59,7 +59,7 @@ class Solution{
     public int lengthOfLongestSubstring(String s){
         int l=0, r=0;
         Set<Character> set = new HashSet<>();
-        int res = 1;
+        int res = 0;
         while(r < s.length()){
 
             char right = s.charAt(r);
