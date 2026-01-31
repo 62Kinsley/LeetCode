@@ -126,29 +126,41 @@
 
 class Solution{
     public ListNode mergeKLists(ListNode[] lists){
-        PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a,b) -> a.val - b.val);
-        
-        for(ListNode node : lists){
-            if(node != null){
-                minHeap.offer(node); //[1,4,5],[1,3,4],[2,6]]
-            }
-            
-        }
+        if (lists == null || lists.length == 0) return null;
+        int l=0, r=lists.length-1;
+        return divede(lists, l, r);
 
-        ListNode dummy = new ListNode();
-        ListNode  cur = dummy;
-        while(!minHeap.isEmpty()){
-            ListNode node  = minHeap.poll();
-            cur.next = node;
-            cur = cur.next;
-            
-            if (node.next!= null) {
-                minHeap.add(node.next);
-            }   
-            
+    }
+
+    public ListNode divede(ListNode[] lists, int l, int r){
+        if(l == r){
+            return lists[l];
         }
+        int mid = l+(r-l)/2;
+        ListNode left = divede(lists, l, mid);
+        ListNode right = divede(lists, mid+1, r);
+        return mergeTwo(left, right);
+
+    }
+
+    public ListNode mergeTwo(ListNode l1, ListNode l2){
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy; 
+
+        while (l1 != null && l2 != null) {
+            if(l1.val <= l2.val){
+                cur.next = l1;
+                cur = cur.next;
+                l1 = l1.next;
+            }else{
+                cur.next = l2;
+                cur = cur.next;
+                l2 = l2.next;
+            }
+        }
+        if(l1 != null) cur.next = l1;
+        if(l2 != null) cur.next = l2;
 
         return dummy.next;
-
     }
 }
