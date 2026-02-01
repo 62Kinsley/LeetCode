@@ -26,7 +26,7 @@ class SnapshotArray {
     // 2,7
     // 3,4
     public int get(int index, int snap_id) {
-        int l=0, r=arr[index].size();
+        int l=0, r=arr[index].size()-1;
         int result = -1;
         while(l <= r){
             int mid = l+(r-l)/2;
