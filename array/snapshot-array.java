@@ -30,16 +30,16 @@ class SnapshotArray {
 
         while(l < r){
             int mid = l+(r-l)/2;
-            if(arr[index].get(mid)[0] > snap_id){
+            if(arr[index].get(mid)[0] >= snap_id){
                 r = mid;
             }else{
                 l = mid + 1;
             }
         }
-        if(l-1 < 0){
+        if(l < 0){
             return 0;
         }else{
-            return arr[index].get(l-1)[1];
+            return arr[index].get(l)[1];
         }
 
     }
