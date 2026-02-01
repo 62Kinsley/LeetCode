@@ -1,48 +1,40 @@
-class SnapshotArray {
-
-    
+class SnapshotArray{
     int snapTimes = 0;
-    List<int[]>[] arr;
-
-    public SnapshotArray(int length) {
+    List<int[]>[] arr;//index-<[snap_id,val]>
+  
+    public SnapshotArray(int length){
         arr = new ArrayList[length];
-        for (int i = 0; i < length; i++) {
+        for(int i=0; i<length; i++){
             arr[i] = new ArrayList<>();
-            
         }
     }
-    
-    public void set(int index, int val) {
+
+    public void set(int index, int val){
         arr[index].add(new int[]{snapTimes, val});
     }
-    
-    public int snap() {
-        return  snapTimes++;
+
+    public int snap(){
+        return snapTimes++;
+        //eaqual to : times = snaptimes, 
+        //snapTimes++, return times 
     }
-    
-    // [0,1,2]
-    // 0,5
-    // 1,6
-    // 2,7
-    // 3,4
-    public int get(int index, int snap_id) {
+
+    public int get(int index, int snap_id){
+      
         int l=0, r=arr[index].size()-1;
-        int result = -1;
+        int ans = -1;
         while(l <= r){
-            int mid = l+(r-l)/2;
+            int mid = l + (r-l)/2;
             if(arr[index].get(mid)[0] <= snap_id){
-                result = mid;
-                l = mid + 1;
+                ans = mid;//mid此时有可能是答案
+                l = mid+1;
             }else{
-                r = mid - 1;
+                r = mid-1;
             }
         }
-        if(result < 0){
-            return 0;
-        }else{
-            return arr[index].get(result)[1];
-        }
 
+
+        return  arr[index].get(ans)[1];  
     }
 }
 
