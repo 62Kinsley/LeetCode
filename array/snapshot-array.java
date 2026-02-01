@@ -27,19 +27,20 @@ class SnapshotArray {
     // 3,4
     public int get(int index, int snap_id) {
         int l=0, r=arr[index].size();
-
-        while(l < r){
+        int result = -1;
+        while(l <= r){
             int mid = l+(r-l)/2;
-            if(arr[index].get(mid)[0] >= snap_id){
-                r = mid;
-            }else{
+            if(arr[index].get(mid)[0] <= snap_id){
+                result = mid;
                 l = mid + 1;
+            }else{
+                r = mid - 1;
             }
         }
-        if(l < 0){
+        if(result < 0){
             return 0;
         }else{
-            return arr[index].get(l)[1];
+            return arr[index].get(result)[1];
         }
 
     }
