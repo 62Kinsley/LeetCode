@@ -19,15 +19,15 @@ class Solution {
         String result = numberToWordsHelper(num%1000);//0-999
         num = num/1000;
         if(num > 0 && num%1000 > 0){
-            result = numberToWordsHelper(num%1000) + " Thousand " + result;
+            result = numberToWordsHelper(num%1000) + "Thousand " + result;
         }
         num = num/1000;
         if(num > 0 && num%1000 > 0){
-            result = numberToWordsHelper(num%1000) + " Million " + result;
+            result = numberToWordsHelper(num%1000) + "Million " + result;
         }
         num = num/1000;
         if(num > 0 && num%1000 > 0){
-            result = numberToWordsHelper(num%1000) + " Billion " + result;
+            result = numberToWordsHelper(num%1000) + "Billion " + result;
         }
         return result.trim();
 
@@ -44,7 +44,7 @@ class Solution {
 
         if(num >= 10 && num<=19){
             String s = teen[num%10];
-            sb.append(s);
+            sb.append(s + " ");
         }else{
             if(num > 19){
                 String s = ten[num/10];
@@ -53,7 +53,7 @@ class Solution {
             num = num % 10;
             if(num > 0){
                 String s = digit[num];
-                sb.append(s);
+                sb.append(s + " ");
             }
         }
         return sb.toString();
