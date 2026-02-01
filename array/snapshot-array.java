@@ -33,7 +33,7 @@ class SnapshotArray{
             }
         }
 
-        if(arr[index] == null){
+        if(ans < 0){
             return 0;
         }else{
             return  arr[index].get(ans)[1];  
