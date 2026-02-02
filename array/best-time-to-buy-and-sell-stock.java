@@ -1,22 +1,18 @@
-// class Solution {
-//     public int maxProfit(int[] prices) {
-
-//         int l=0, r=0;
-//         int max = 0;
-
-//         while(r<prices.length){
-//             if(prices[l] > prices[r]){
-//                 l = r;
-//                 r++;
-//             }else{
-//                 max = Math.max(max, prices[r]-prices[l]);
-//                 r++;
-//             }
-//         }
-
-//         return max;
-//     }
-// }
+class Solution {
+    public int maxProfit(int[] prices) {
+            int l=0, r=0;
+            int res = 0;
+            while(r < prices.length){
+                if(prices[l] <= prices[r]){
+                    res = Math.max(res, prices[r]-prices[l]);
+                }else{
+                    l = r;
+                }
+                r++;
+            }
+            return res;
+    }
+}
 
 // time:O(N)
 // space:O(1);
@@ -51,19 +47,19 @@
 // dp[i][1] 第i天不持有（dp[i-1][1], dp[i-1][0]+price[i]）
 
 
-class Solution{
-    public int maxProfit(int[] prices){
-        // dp[i][0] : the max profit of from 0-i day hold this stock 
-        // dp[i][1]: the max profit of from 0-i day not hold this stock 
-        int n = prices.length;
-        int[][] dp = new int[n][2];
-        dp[0][0] = -prices[0];
-        dp[0][1] = 0;
+// class Solution{
+//     public int maxProfit(int[] prices){
+//         // dp[i][0] : the max profit of from 0-i day hold this stock 
+//         // dp[i][1]: the max profit of from 0-i day not hold this stock 
+//         int n = prices.length;
+//         int[][] dp = new int[n][2];
+//         dp[0][0] = -prices[0];
+//         dp[0][1] = 0;
 
-        for(int i=1; i<n; i++){
-            dp[i][0] = Math.max(dp[i-1][0], -prices[i]);//0-(i-1) day hold, vs hold today
-            dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0]+prices[i]);
-        }
-        return dp[n-1][1];
-    }
-}
+//         for(int i=1; i<n; i++){
+//             dp[i][0] = Math.max(dp[i-1][0], -prices[i]);//0-(i-1) day hold, vs hold today
+//             dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0]+prices[i]);
+//         }
+//         return dp[n-1][1];
+//     }
+// }
