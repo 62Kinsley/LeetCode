@@ -39,10 +39,11 @@ class Solution{
         int sum = 0;
         for(int num : nums){
             sum += num;//3
+            res = Math.max(res, sum);
+            
             if(sum < 0){
                 sum = 0;//0
             }
-            res = Math.max(res, sum);
         }
         return res;
     }
