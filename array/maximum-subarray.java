@@ -32,14 +32,17 @@
 
 class Solution{
     public int maxSubArray(int[] nums){
+        if(nums.length == 1){
+            return nums[0];
+        }
         int res = nums[0];
-        int count = 0;
+        int sum = 0;
         for(int num : nums){
-            count += num;//3
-            if(count < 0){
-                count = 0;//0
+            sum += num;//3
+            if(sum < 0){
+                sum = 0;//0
             }
-            res = Math.max(res, count);
+            res = Math.max(res, sum);
         }
         return res;
     }
