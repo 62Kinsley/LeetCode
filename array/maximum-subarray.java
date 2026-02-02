@@ -33,7 +33,7 @@
 class Solution{
     public int maxSubArray(int[] nums){
         int res = nums[0];
-        int count = nums[0];
+        int count = 0;
         for(int num : nums){
             count += num;//3
             if(count < 0){
