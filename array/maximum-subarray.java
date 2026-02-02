@@ -35,7 +35,7 @@ class Solution{
         if(nums.length == 1){
             return nums[0];
         }
-        int res = nums[0];
+        int res = Integer.MIN_VALUE;
         int sum = 0;
         for(int num : nums){
             sum += num;//3
