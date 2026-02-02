@@ -83,15 +83,14 @@ class TimeMap{
 
     public String get(String key, int timestamp){
         TreeMap<Integer, String> treeMap = map.get(key);
-        // if(treeMap == null) {
-        //     return "";
-        // }
-        // Integer floor = treeMap.floorKey(timestamp);
-        // if(floor==null) {
-        //     return "";
-        // }
-        // return treeMap.get(floor);
+        if(treeMap == null) {
+            return "";
+        }
+        Integer floor = treeMap.floorKey(timestamp);
+        if(floor==null) {
+            return "";
+        }
+        return treeMap.get(floor);
 
-        return treeMap.floorEntry(timestamp).getValue() == null? "" :  treeMap.floorEntry(timestamp).getValue() ;
     }
 }
