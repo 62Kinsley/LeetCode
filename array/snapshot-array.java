@@ -1,73 +1,76 @@
-class SnapshotArray{
-    int snapTimes = 0;
-    List<int[]>[] arr;//index-<[snap_id,val]>
-  
-    public SnapshotArray(int length){
-        arr = new ArrayList[length];
-        for(int i=0; i<length; i++){
-            arr[i] = new ArrayList<>();
-        }
-    }
-
-    public void set(int index, int val){
-        arr[index].add(new int[]{snapTimes, val});
-    }
-
-    public int snap(){
-        return snapTimes++;
-        //eaqual to : times = snaptimes, 
-        //snapTimes++, return times 
-    }
-
-    public int get(int index, int snap_id){
-      
-        int l=0, r=arr[index].size()-1;
-        int ans = -1;
-        while(l <= r){
-            int mid = l + (r-l)/2;
-            if(arr[index].get(mid)[0] <= snap_id){
-                ans = mid;//mid此时有可能是答案
-                l = mid+1;
-            }else{
-                r = mid-1;
-            }
-        }
-
-        if(ans < 0){
-            return 0;
-        }else{
-            return  arr[index].get(ans)[1];  
-        }
-        
-    }
-}
-
-
-// class SnapshotArray {
-
-    
+// class SnapshotArray{
 //     int snapTimes = 0;
-//     TreeMap<Integer, Integer>[] map = new TreeMap[];//index, [snap_id, val]
-
-//     public SnapshotArray(int length) {
+//     List<int[]>[] arr;//index-<[snap_id,val]>
+  
+//     public SnapshotArray(int length){
+//         arr = new ArrayList[length];
 //         for(int i=0; i<length; i++){
-//             map[i] = new TreeMap<>();
-//             map[i].put(0,0);// snap_id = 0  for 0
+//             arr[i] = new ArrayList<>();
 //         }
 //     }
-    
-//     public void set(int index, int val) {
-//            map[index].put(snapTimes, val);
+
+//     public void set(int index, int val){
+//         arr[index].add(new int[]{snapTimes, val});
 //     }
-    
-//     public int snap() {
+
+//     public int snap(){
 //         return snapTimes++;
+//         //eaqual to : times = snaptimes, 
+//         //snapTimes++, return times 
 //     }
-    
-//     public int get(int index, int snap_id) {
-//         map[index].floorEntry(snap_id).getValue();
+
+//     public int get(int index, int snap_id){
+      
+//         int l=0, r=arr[index].size()-1;
+//         int ans = -1;
+//         while(l <= r){
+//             int mid = l + (r-l)/2;
+//             if(arr[index].get(mid)[0] <= snap_id){
+//                 ans = mid;//mid此时有可能是答案
+//                 l = mid+1;
+//             }else{
+//                 r = mid-1;
+//             }
+//         }
+
+//         if(ans < 0){
+//             return 0;
+//         }else{
+//             return  arr[index].get(ans)[1];  
+//         }
+        
 //     }
 // }
+
+
+class SnapshotArray {
+
+    int snapTimes = 0;
+    TreeMap<Integer, Integer>[] map; //index, [snap_id, val]
+
+    public SnapshotArray(int length) {
+        map = new TreeMap[length]; 
+        for(int i=0; i<length; i++){
+            map[i] = new TreeMap<>();
+            map[i].put(0,0);// snap_id = 0  for 0
+        }
+    }
+    
+    public void set(int index, int val) {
+           map[index].put(snapTimes, val);
+    }
+    
+    public int snap() {
+        return snapTimes++;
+    }
+    
+    public int get(int index, int snap_id) {
+        // return map[index].floorEntry(snap_id).getValue();
+        int id = map[index].floorKey(snap_id);
+        TreeMap<Integer, Integer> tm = map[index];
+        return tm.get(id);
+    }
+}
 /**
  * Your SnapshotArray object will be instantiated and called as such:
  * SnapshotArray obj = new SnapshotArray(length);
