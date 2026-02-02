@@ -15,46 +15,75 @@
  *     public List<NestedInteger> getList();
  * }
  */
+// public class NestedIterator implements Iterator<Integer> {
+
+//     Stack<NestedInteger> stack;
+//     public NestedIterator(List<NestedInteger> nestedList) {
+//        stack = new Stack<NestedInteger>();
+//        int n = nestedList.size();
+//        for(int i=n-1; i>=0; i--){
+//             stack.push(nestedList.get(i));
+//        }
+//     }
+
+//     @Override
+//     public Integer next() {
+//         if(hasNext()){
+//             return stack.pop().getInteger();
+//         }else{
+//             return -1;
+//         }
+        
+//     }
+
+//     @Override
+//     public boolean hasNext() {
+//        if(stack.isEmpty()){
+//             return false;
+//         }else{
+//             NestedInteger item = stack.peek();
+//             if(item.isInteger()){
+//                 return true;
+//             }else{
+//                 item = stack.pop();
+//                 List<NestedInteger> list = item.getList();
+//                 for(int i=list.size()-1; i>=0; i--){
+//                     stack.push(list.get(i));
+//                 }
+//                 return hasNext();
+//             }
+//         }
+//     }
+// }
 public class NestedIterator implements Iterator<Integer> {
 
-    Stack<NestedInteger> stack;
+    Queue<Integer> queue = new LinkedList<>();
+
     public NestedIterator(List<NestedInteger> nestedList) {
-       stack = new Stack<NestedInteger>();
-       int n = nestedList.size();
-       for(int i=n-1; i>=0; i--){
-            stack.push(nestedList.get(i));
-       }
+        dfs(nestedList);
     }
 
     @Override
     public Integer next() {
-        if(hasNext()){
-            return stack.pop().getInteger();
-        }else{
-            return -1;
-        }
-        
+        return hasNext() ? queue.poll() : -1;
     }
 
     @Override
     public boolean hasNext() {
-       if(stack.isEmpty()){
-            return false;
-        }else{
-            NestedInteger item = stack.peek();
-            if(item.isInteger()){
-                return true;
-            }else{
-                item = stack.pop();
-                List<NestedInteger> list = item.getList();
-                for(int i=list.size()-1; i>=0; i--){
-                    stack.push(list.get(i));
-                }
-                return hasNext();
+        return !queue.isEmpty();
+    }
+
+    void dfs(List<NestedInteger> list) {
+        for (NestedInteger item : list) {
+            if (item.isInteger()) {
+                queue.offer(item.getInteger());
+            } else {
+                dfs(item.getList());
             }
         }
     }
 }
+
 
 /**
  * Your NestedIterator object will be instantiated and called as such:
