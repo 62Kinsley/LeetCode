@@ -65,7 +65,11 @@ public class NestedIterator implements Iterator<Integer> {
 
     @Override
     public Integer next() {
-        return hasNext() ? queue.poll() : -1;
+        if(!queue.isEmpty()){
+            return queue.poll();
+        }else{
+            return -1;
+        }
     }
 
     @Override
