@@ -30,9 +30,11 @@ class Solution {
             int len = sb.length();
             if(len > 0 && c == sb.charAt(len - 1)){
                 sb.deleteCharAt(len - 1);
-                continue;
+                
+            }else{
+                sb.append(c);
             }
-            sb.append(c);//
+            //
         }
 
         return sb.toString();
