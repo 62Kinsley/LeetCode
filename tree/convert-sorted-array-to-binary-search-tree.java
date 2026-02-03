@@ -51,7 +51,7 @@ class Solution{
     }
     public TreeNode dfs(int[] nums, int l, int r){
 
-        if(l > r || r < l){
+        if(l > r ){
             return null;
         }
         if(l == r){
