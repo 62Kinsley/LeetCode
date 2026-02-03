@@ -10,7 +10,7 @@ class Solution {
 
         while(r < n){
             prod *= nums[r];
-            while(l<r && prod >= k){
+            while(l<=r && prod >= k){
                 prod /= nums[l];
                 l++;
             }
