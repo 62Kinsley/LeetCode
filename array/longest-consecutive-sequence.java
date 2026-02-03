@@ -69,31 +69,29 @@
 
 class Solution {
     public int longestConsecutive(int[] nums) {
-
-        //edge case:
-        if(nums.length <= 1){
-            return nums.length;
+        //edge case
+        if(nums.length ==  0){
+            return 0;
         }
-        
-        HashSet<Integer> set = new HashSet<>();
+
+        Set<Integer> set = new HashSet<>();
         int res = 1;
-         for(int num: nums){
-            set.add(num);//0,1,2
+        for(int num : nums){
+            set.add(num);
         }
 
-        for(int num: set){//1
-            if(set.contains(num-1)){
+        for(int num : set){
+            if(set.contains(num-1)){//it means this num is not the beginning
                 continue;
-            }else{
-                int count = 1;
-                int cur = num;
-                while(set.contains(cur+1)){//2
-                    count++;//1
-                    res = Math.max(res, count);//4
-                    cur = cur+1;//
+            }else{//num = 1
+                int count = 1;//
+                while(set.contains(num+1)){//3
+                    count++;//3
+                    num = num+1;//2
+                    res = Math.max(count, res);//3 
                 }
+                 
             }
-           
         }
         return res;
     }
