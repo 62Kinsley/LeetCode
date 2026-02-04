@@ -6,12 +6,12 @@ public class Codec {
         // 把当前编号和长链接存到字典里
         // 比如：0 → "https://leetcode.com/xxx"
         map.put(id, longUrl);
-        return "http://tinyurl.com"+ id++;
+        return "http://tinyurl.com/"+ id++;
 }
 
     // Decodes a shortened URL to its original URL.
     public String decode(String shortUrl) {
-        int key = Integer.parseInt(shortUrl.replace("http://tinyurl.com", ""));
+        int key = Integer.parseInt(shortUrl.replace("http://tinyurl.com/", ""));
         return map.get(key);
     }
 }
