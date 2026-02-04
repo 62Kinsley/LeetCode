@@ -73,14 +73,13 @@ class Solution {
                     dp[i][j] = dp[i-1][j-1];
                 }
                 else if(p.charAt(j-1) == '*'){
-                    if(p.charAt(j-2) == s.charAt(i-1)){
-                        dp[i][j] = dp[i][j-2] || dp[i-1][j-2] || dp[i-1][j];
-                    }else if(p.charAt(j-2) == '.'){
-                        dp[i][j] = dp[i][j-2] || dp[i][j-1] || dp[i-1][j];
-                    }else{// p.charAt(j-2) != s.charAt(i-1)  这个一定要放在最后！！！
+                    if(p.charAt(j-2) != s.charAt(i-1)){
                         dp[i][j] = dp[i][j-2];
                     }
-                    
+                    if(p.charAt(j-2) == '.' ||  p.charAt(j-2) == s.charAt(i-1)){//这两个情况是一样的
+                    //分别考虑1. *让前面的字母消失， 2.*让前面的字母出现1次， 3.*让前面的字母出现>1次
+                        dp[i][j] = dp[i][j-2] || dp[i][j-1] || dp[i-1][j];
+                    }
                 }
             }
         }
