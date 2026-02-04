@@ -15,32 +15,30 @@
  * boolean param_1 = obj.book(startTime,endTime);
  */
 
- class MyCalendarTwo {
+class MyCalendarTwo {
+    TreeMap<Integer, Integer> map;
 
-    private TreeMap<Integer, Integer> map;    
-    
     public MyCalendarTwo() {
-        map = new TreeMap<>();
+        map = new TreeMap<>((x, y) -> y - x);
     }
-    
+
     public boolean book(int start, int end) {
+        int temp = 0;
+        int ans = 0;
         map.put(start, map.getOrDefault(start, 0) + 1);
         map.put(end, map.getOrDefault(end, 0) - 1);
-        int count = 0;
-        for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            count += entry.getValue();
-            if(count > 2) {
-                map.put(start, map.get(start) - 1);
-                if(map.get(start) == 0) {
-                    map.remove(start);
-                }
-                map.put(end, map.get(end) + 1);
-                if(map.get(end) == 0) {
-                    map.remove(end);
-                }
+        //恢复所有的值 采取了逆向恢复 和正向恢复都一样
+        for (Integer key : map.keySet()) {
+            temp = temp - map.get(key);
+            ans = Math.max(ans, temp);
+            if (ans > 2) {
+                map.put(start, map.getOrDefault(start, 0) - 1);
+                map.put(end, map.getOrDefault(end, 0) + 1);
                 return false;
             }
         }
         return true;
     }
+
 }
+
