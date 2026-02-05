@@ -55,7 +55,7 @@ class SnapshotArray {
         map = new TreeMap[length];
         for(int i=0; i<length; i++){
             map[i] = new TreeMap<>();
-            map[i].put(0,0);// snap_id = 0  for 0
+            // map[i].put(0,0);// snap_id = 0  for 0
         }
     }
     
