@@ -88,8 +88,9 @@ class Solution {
                 while(set.contains(num+1)){//3
                     count++;//3
                     num = num+1;//2
-                    res = Math.max(count, res);//3 
+                    //3 
                 }
+                res = Math.max(count, res);
                  
             }
         }
