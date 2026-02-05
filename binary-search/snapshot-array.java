@@ -1,3 +1,5 @@
+//看981！！！！
+
 // class SnapshotArray{
 //     int snapTimes = 0;
 //     List<int[]>[] arr;//index-<[snap_id,val]>
@@ -45,11 +47,12 @@
 
 class SnapshotArray {
 
+    
     int snapTimes = 0;
-    TreeMap<Integer, Integer>[] map; //index, [snap_id, val]
+    TreeMap<Integer, Integer>[] map;//index, [snap_id, val]
 
     public SnapshotArray(int length) {
-        map = new TreeMap[length]; 
+        map = new TreeMap[length];
         for(int i=0; i<length; i++){
             map[i] = new TreeMap<>();
             map[i].put(0,0);// snap_id = 0  for 0
@@ -65,10 +68,7 @@ class SnapshotArray {
     }
     
     public int get(int index, int snap_id) {
-        // return map[index].floorEntry(snap_id).getValue();
-        int id = map[index].floorKey(snap_id);
-        TreeMap<Integer, Integer> tm = map[index];
-        return tm.get(id);
+        return map[index].floorEntry(snap_id).getValue();
     }
 }
 /**
