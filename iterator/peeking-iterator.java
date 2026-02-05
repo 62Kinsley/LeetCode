@@ -3,7 +3,7 @@
 
 class PeekingIterator implements Iterator<Integer> {
        Iterator<Integer> iterator; 
-      Integer next;
+       Integer next;
       public PeekingIterator(Iterator<Integer> iterator) {
           // initialize any member here.
           this.iterator = iterator;
@@ -33,6 +33,6 @@ class PeekingIterator implements Iterator<Integer> {
 	
 	@Override
 	public boolean hasNext() {
-	    return next != null;
+	    return iterator.hasNext();
 	}
 }
