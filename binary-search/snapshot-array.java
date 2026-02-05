@@ -68,7 +68,8 @@ class SnapshotArray {
     }
     
     public int get(int index, int snap_id) {
-        return map[index].floorEntry(snap_id).getValue();
+        // return map[index].floorEntry(snap_id).getValue();
+        return map[index].floorEntry(snap_id) == null? 0: map[index].floorEntry(snap_id).getValue();
     }
 }
 /**
