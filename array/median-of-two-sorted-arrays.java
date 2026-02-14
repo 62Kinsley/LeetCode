@@ -56,7 +56,7 @@ class Solution{
         if(nums1[i+step1-1] <= nums2[j+step2-1]){
             return getKth(nums1, nums2, k-step1, i+step1, j);
         }else{
-            return getKth(nums1, nums2, k-step1, i, j+step1);
+            return getKth(nums1, nums2, k-step2, i, j+step2);
         }
     }
 }
