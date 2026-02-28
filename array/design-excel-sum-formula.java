@@ -12,7 +12,7 @@ class Excel {
     public void set(int row, char column, int val) {
         String key = row + "," + (column - 'A');
         formulas.remove(key);
-        excel[row][column - 'A'] = val;
+        excel[row - 1][column - 'A'] = val;
     }
     
     public int get(int row, char column) {
@@ -21,7 +21,7 @@ class Excel {
             String[] numbers = formulas.get(key);
             return calcSum(numbers);
         }
-        return excel[row][column - 'A'];
+        return excel[row - 1][column - 'A'];
     }
     
     public int sum(int row, char column, String[] numbers) {
