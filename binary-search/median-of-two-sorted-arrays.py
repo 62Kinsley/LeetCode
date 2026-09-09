@@ -27,7 +27,7 @@ class Solution:
         step2 = min(mid, len(nums2) - l2)
 
         cur1 = l1+step1-1
-        cur2 = l2+step1-1
+        cur2 = l2+step2-1
 
         if(nums1[cur1] < nums2[cur2]):
             l1 = l1+step1
