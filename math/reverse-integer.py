@@ -9,24 +9,26 @@
 #grab the last digit by mod 10
 #shrin x by dividing by 10
 class Solution:
-    def reverse(self, x: int) -> int:
-        is_negative = False
-        if x < 0:
+    def reverse(self, x:int) -> int:
+
+        INT_MAX = 2**31 - 1
+        res = 0
+        is_negative = False 
+        if(x < 0):
             is_negative = True
             x *= -1
 
-        res = 0
-        INT_MAX = 2**31 - 1
+        while(x > 0):
 
-        while x > 0:
-            mod = x % 10
+            digit = x%10
 
-            if(res > (INT_MAX) // 10) or (res > (INT_MAX) // 10 and mod > 7):
+            if(res >  INT_MAX // 10) or ( res ==  INT_MAX // 10 and digit > 7):
                 return 0
-            res = res * 10 + mod
+            res = res*10 + digit
             x = x // 10
 
-        return  -res if is_negative else res
+        return -res if is_negative else res
+
 
 
 
