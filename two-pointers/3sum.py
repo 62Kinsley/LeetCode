@@ -5,6 +5,8 @@ class Solution:
         res = []
 
         for i in range(len(nums)):
+            if nums[i] > 0:
+                break
 
             l = i+1
             r = len(nums) - 1
