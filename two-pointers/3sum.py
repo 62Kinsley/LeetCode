@@ -1,5 +1,5 @@
 class Solution:
-    def threeSum(self, nums: List[nums]) -> List[List[int]]:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
         res = []
 
@@ -7,12 +7,12 @@ class Solution:
 
             if nums[i] > 0:
                 break
-            if(i>1 and nums[i] == nums[i-1]):
+            if(i>0 and nums[i] == nums[i-1]):
                 continue
 
             l = i+1
             r = len(nums) - 1
-            
+
             while(l < r):
                 total =  nums[i] + nums[l] + nums[r]
                 if total == 0:
