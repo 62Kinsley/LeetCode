@@ -6,13 +6,13 @@ class Solution:
         res = []
 
         for i in range(n-3):
-            if nums[i] > target:
+            if nums[i]>0 and nums[i] > target:
                 break
             if i>0 and nums[i] == nums[i-1]:
                 continue
 
             for j in range(i+1, n-2):
-                if nums[i]+nums[j] > target:
+                if nums[i]+nums[j]>0 and nums[i]+nums[j] > target:
                     break
                 if j>i+1 and nums[j] == nums[j-1]:
                     continue
