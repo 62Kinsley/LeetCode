@@ -1,34 +1,39 @@
 class Solution:
-    def kSum(self, nums: List[int], target: int, k: int) -> List[List[int]]:
-        res = []
-        if not nums:
-            return res
-        avg = target // k
-        if nums[-1] < avg or nums[0] > avg:
-            return res
+    def fourSum(self, nums:List[int], target) -> List[List[int]]:
 
-        if k == 2:
-            return self.twoSum(nums, target)
-        
-        for i in range(len(nums)):
-            if i == 0 or nums[i-1] != nums[i]:
-                temp_res = self.kSum(nums[i + 1:], target - nums[i], k - 1)
-                for sub_list in temp_res:
-                    res.append([nums[i]] + sub_list)
-        return res
-        
-    def twoSum(self, nums: List[int], target: int) -> List[List[int]]:
-        res = []
-        cache_set = set()
-
-        for i in range(len(nums)):
-            if not res or res[-1][0] != nums[i]:
-                remaining = target - nums[i]
-                if remaining in cache_set:
-                    res.append([nums[i], remaining])
-            cache_set.add(nums[i])
-        return res
-    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
         nums.sort()
-        return self.kSum(nums, target, 4)
+        n = len(nums)
+        res = []
+
+        for i in range(n-3):
+            if nums[i] > target:
+                break
+            if i>0 and nums[i] == nums[i-1]:
+                continue
+
+            for j in range(i+1, n-2):
+                if nums[i]+nums[j] > target:
+                    break
+                if j>i+1 and nums[j] == nums[j-1]:
+                    continue
+                
+                l,r = j+1, n-1
+
+                while(l < r):
+                    total = nums[i]+nums[j]+nums[l]+nums[r]
+                    if(total < target):
+                        l += 1
+                    elif(total > target):
+                        r -= 1
+                    else:
+                        res.append([nums[i], nums[j], nums[l], nums[r]])       
+                        l += 1   
+                        r -= 1
+                        while(l<r and nums[l] == nums[l-1]):
+                            l += 1 
+                        while(l<r and nums[r] == nums[r+1]):
+                            r -= 1 
+
+        return res
+
         
