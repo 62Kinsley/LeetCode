@@ -61,7 +61,7 @@ class Solution:
                 cur.next = l1
                 l1 = l1.next
                 cur = cur.next
-            elif l2.val <= l1.val:
+            else:
                 cur.next = l2
                 l2 = l2.next
                 cur = cur.next
